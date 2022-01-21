@@ -10,6 +10,7 @@
 #include "stdlib.h"
 #include "fcntl.h"
 #include "libft/libft.h"
+#define KEY_H 0
 
 typedef struct s_window_parameters {
 	int		height;
@@ -24,6 +25,7 @@ typedef struct s_data {
 	int		line_length;
 	int		endian;
 }				t_data;
+
 
 typedef struct s_cmp {
 	double x;

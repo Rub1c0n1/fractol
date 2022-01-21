@@ -14,8 +14,8 @@ void mandelbrot(void *mlx, t_info data, t_data	img, t_cmp 	cmp, double x_new)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	for (int row = 0; row < img.params.height; row++) {
 		for (int col = 0; col < img.params.width; col++) {
-			cmp.c_re = (col - img.params.width / 2.0) * 4.0 / img.params.width;
-			cmp.c_im = (row - img.params.height / 2.0) * 4.0 / img.params.width;
+			cmp.c_re = (col - img.params.width / 0.19) * 0.15 / img.params.width;
+			cmp.c_im = (row - img.params.height / 0.19) * 0.15 / img.params.width;
 			cmp.x = 0;
 			cmp.y = 0;
 			data.iteration = 0;
@@ -26,7 +26,7 @@ void mandelbrot(void *mlx, t_info data, t_data	img, t_cmp 	cmp, double x_new)
 				data.iteration++;
 			}
 			if (data.iteration < data.max_iter)
-				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + data.iteration * 20);
+				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + data.iteration  + 0x00112233);
 			else
 				my_mlx_pixel_put(&img, col, row, 0x00000000);
 		}
@@ -53,7 +53,7 @@ void julia(void *mlx, t_info data, t_data	img, t_cmp 	cmp, double x_new)
 				data.iteration++;
 			}
 			if (data.iteration < data.max_iter)
-				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + data.iteration * 20);
+				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + data.iteration * 0x00221100);
 			else
 				my_mlx_pixel_put(&img, col, row, 0x00000000);
 		}
@@ -72,7 +72,7 @@ void julia(void *mlx, t_info data, t_data	img, t_cmp 	cmp, double x_new)
 	{
 		if (ft_strncmp(argv[1], "Julia", 6) == 0 || (ft_strncmp(argv[1], "Mandelbrot", 20)) == 0)
 		{
-			data.max_iter = 400;
+			data.max_iter = 10000;
 			img.params.height = 1080;
 			img.params.width = 1920;
 			mlx = mlx_init();
