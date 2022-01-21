@@ -7,22 +7,36 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-
- int	main(void)
+void mandelbrot(void *mlx, t_info data, t_data	img, t_cmp 	cmp, double x_new)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
-	t_cmp 	cmp;
-	int 	max_iter;
-	int 	iteration;
-	double 	x_new;
+	data.mlx_win = mlx_new_window(mlx, img.params.width, img.params.height, "Mandelbrot Set");
+	img.img = mlx_new_image(mlx, img.params.width, img.params.height);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	for (int row = 0; row < img.params.height; row++) {
+		for (int col = 0; col < img.params.width; col++) {
+			cmp.c_re = (col - img.params.width / 2.0) * 4.0 / img.params.width;
+			cmp.c_im = (row - img.params.height / 2.0) * 4.0 / img.params.width;
+			cmp.x = 0;
+			cmp.y = 0;
+			data.iteration = 0;
+			while (cmp.x * cmp.x + cmp.y * cmp.y < 4 && data.iteration < data.max_iter) {
+				x_new = cmp.x * cmp.x - cmp.y * cmp.y + cmp.c_re;
+				cmp.y = 2 * cmp.x * cmp.y + cmp.c_im;
+				cmp.x = x_new;
+				data.iteration++;
+			}
+			if (data.iteration < data.max_iter)
+				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + data.iteration * 20);
+			else
+				my_mlx_pixel_put(&img, col, row, 0x00000000);
+		}
+	}
+	mlx_put_image_to_window(mlx, data.mlx_win, img.img, 0, 0);
+}
 
-	max_iter = 400;
-	img.params.height = 1080;
-	img.params.width = 1920;
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, img.params.width, img.params.height, "Hello world!");
+void julia(void *mlx, t_info data, t_data	img, t_cmp 	cmp, double x_new)
+{
+	data.mlx_win = mlx_new_window(mlx, img.params.width, img.params.height, "Julia Set");
 	img.img = mlx_new_image(mlx, img.params.width, img.params.height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	for (int row = 0; row < img.params.height; row++) {
@@ -31,63 +45,44 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 			cmp.c_im = 0.27015;
 			cmp.x = (col - img.params.width / 2.0) * 4.0 / img.params.width;
 			cmp.y = (row - img.params.height / 2.0) * 4.0 / img.params.width;
-			iteration = 0;
-			while (cmp.x * cmp.x + cmp.y * cmp.y < 4 && iteration < max_iter) {
+			data.iteration = 0;
+			while (cmp.x * cmp.x + cmp.y * cmp.y < 4 && data.iteration < data.max_iter) {
 				x_new = cmp.x * cmp.x - cmp.y * cmp.y + cmp.c_re;
 				cmp.y = 2 * cmp.x * cmp.y + cmp.c_im;
 				cmp.x = x_new;
-				iteration++;
+				data.iteration++;
 			}
-			if (iteration < max_iter)
-				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + iteration * 20);
+			if (data.iteration < data.max_iter)
+				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF + data.iteration * 20);
 			else
 				my_mlx_pixel_put(&img, col, row, 0x00000000);
 		}
 	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(mlx, data.mlx_win, img.img, 0, 0);
 }
+ int	main(int argc, char* argv[])
+{
+	void	*mlx;
+	t_data	img;
+	t_cmp 	cmp;
+	t_info	data;
+	double 	x_new;
 
+	if (argc > 1)
+	{
+		if (ft_strncmp(argv[1], "Julia", 6) == 0 || (ft_strncmp(argv[1], "Mandelbrot", 20)) == 0)
+		{
+			data.max_iter = 400;
+			img.params.height = 1080;
+			img.params.width = 1920;
+			mlx = mlx_init();
+			if (ft_strncmp(argv[1], "Julia", 10) == 0)
+				julia(mlx, data, img, cmp, x_new);
+			else
+				mandelbrot(mlx, data, img, cmp, x_new);
+			mlx_loop(mlx);
+		}
 
-//Mandelbrot set
-//int	main(void)
-//{
-//	void	*mlx;
-//	void	*mlx_win;
-//	t_data	img;
-//	t_cmp 	cmp;
-//	int		height;
-//	int		width;
-//	int 	max;
-//	int 	iteration;
-//	double 	x_new;
-//
-//	max = 1000;
-//	height = 1080;
-//	width = 1920;
-//	mlx = mlx_init();
-//	mlx_win = mlx_new_window(mlx, width, height, "Hello world!");
-//	img.img = mlx_new_image(mlx, width, height);
-//	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-//	for (int row = 0; row < height; row++) {
-//		for (int col = 0; col < width; col++) {
-//			cmp.c_re = (col - width / 2.0) * 4.0 / width;
-//			cmp.c_im = (row - height / 2.0) * 4.0 / width;
-//			cmp.x = 0;
-//			cmp.y = 0;
-//			iteration = 0;
-//			while (cmp.x * cmp.x + cmp.y * cmp.y <= 4 && iteration < max) {
-//				x_new = cmp.x * cmp.x - cmp.y * cmp.y + cmp.c_re;
-//				cmp.y = 2 * cmp.x * cmp.y + cmp.c_im;
-//				cmp.x = x_new;
-//				iteration++;
-//			}
-//			if (iteration < max)
-//				my_mlx_pixel_put(&img, col, row, 0x00FFFFFF);
-//			else
-//				my_mlx_pixel_put(&img, col, row, 0x00000000);
-//		}
-//	}
-//	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-//	mlx_loop(mlx);
-//}
+	}
+	return (0);
+}

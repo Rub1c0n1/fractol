@@ -27,7 +27,7 @@ int			ft_isdigit(int ch); //full complete ?
 int			ft_isascii(int ch); //full complete ?
 int			ft_isalpha(int ch); //full complete ?
 int			ft_atoi(const char *src); //full complete
-int			main(void);
+int			main(int argc, char *argv[]);
 const char	*ft_strchr(const char *str, int c); //full complete
 const char	*ft_strrchr(const char *str, int c); //full complete
 char		*ft_strnstr(const char *first, const char *second, size_t len); //fc
