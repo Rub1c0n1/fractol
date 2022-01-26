@@ -1,15 +1,15 @@
 //
 // Created by Deadshot Gizzard on 1/21/22.
 //
-
 #ifndef FRACTOL_H
 #define FRACTOL_H
 
-#include "libmlx/mlx.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "fcntl.h"
-#include "libft/libft.h"
+# include "libmlx/mlx.h"
+# include "stdio.h"
+# include "stdlib.h"
+# include "fcntl.h"
+# include "libft/libft.h"
+# include "string.h"
 
 typedef struct s_lims {
 	double	max_x;
@@ -44,6 +44,7 @@ typedef struct s_info
 	void	*mlx_win;
 	char	*type;
 	t_data	data;
+	t_lims	lims;
 }				t_info;
 
 char	*pointer_to_hex(size_t num);

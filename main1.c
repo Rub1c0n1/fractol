@@ -84,6 +84,7 @@ void	refresher_j(void *win, t_data *data)
 		cre = min_x + (double)cx / 1920 * (max_x - min_x);
 		for (int j = 0; j < 1080; j++)
 		{
+			cre = min_x + (double)cx / 1920 * (max_x - min_x);
 			cij = min_y + (double)cy / 1080 * (max_y - min_y);
 			re = min_x + (double)i / 1920 * (max_x - min_x);
 			ij = min_y + (double)j / 1080 * (max_y - min_y);
