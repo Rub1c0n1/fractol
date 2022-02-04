@@ -2,51 +2,22 @@
 // Created by Deadshot Gizzard on 1/21/22.
 //
 #ifndef FRACTOL_H
-#define FRACTOL_H
 
+# include "structs.h"
 # include "libmlx/mlx.h"
-# include "stdio.h"
-# include "stdlib.h"
-# include "fcntl.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
 # include "libft/libft.h"
-# include "string.h"
 
-typedef struct s_lims {
-	double	max_x;
-	double	min_x;
-	double	max_y;
-	double	min_y;
-	double	max_iter;
-	char	type;
-}			t_lims;
-
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-
-typedef struct s_cmp {
-	double x;
-	double y;
-	double c_re;
-	double c_im;
-}				t_cmp;
-
-typedef struct s_info
-{
-	int 	iteration;
-	int		max_iter;
-	void	*mlx;
-	void	*mlx_win;
-	char	*type;
-	t_data	data;
-	t_lims	lims;
-}				t_info;
-
-char	*pointer_to_hex(size_t num);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		key_hook(int boutton, t_info *e);
+t_info	limits_set(t_info *data);
+void	mandelbrot(t_data *data, t_lims lims);
+void	julia(t_info *e, t_lims lims);
+int		render(t_info *e);
+int		mouse_hook(int boutton, int x, int y, t_info *e);
+int		loop_hook(t_info *e);
+int		main(int argc, char*argv[]);
 
 #endif //FRACTOL_H
