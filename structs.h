@@ -1,23 +1,31 @@
-//
-// Created by Deadshot Gizzard on 2/4/22.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgizzard <dgizzard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/08 21:17:19 by dgizzard          #+#    #+#             */
+/*   Updated: 2022/02/08 21:17:21 by dgizzard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef STRUCTS_H
 
 typedef struct s_lims {
 	double	max_x;
-	double	min_x;
+	double	minx;
 	double	max_y;
-	double	min_y;
+	double	miny;
 	double	max_iter;
 }			t_lims;
 
 typedef struct s_data {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int		b_p_p;
+	int		l_s;
+	int		end;
 }				t_data;
 
 typedef struct s_julia_params {
