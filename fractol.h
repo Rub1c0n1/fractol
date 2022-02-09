@@ -19,10 +19,11 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
+void 	destroy_window(t_info *e);
 void	print_pixel(int iteration, t_info *e, double col, double row);
 void	julia_formule(t_cmp *cmp, t_lims *lims, double *x_new, int *iteration);
-int		key_hook(int boutton, t_info *e);
-int		mouse_hook(int boutton, int x, int y, t_info *e);
+int		key_hook(int button, t_info *e);
+int		mouse_hook(int button, int x, int y, t_info *e);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 t_info	limits_set(t_info *data);
 void	mandelbrot(t_info *e, t_lims lims, double col, double row);

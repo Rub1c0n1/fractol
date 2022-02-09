@@ -12,38 +12,39 @@
 
 #include "../fractol.h"
 
-void	arrows_control(int boutton, t_info *e, double temp)
+void	arrows_control(int button, t_info *e, double temp)
 {
-	if (boutton == 123 || boutton == 124)
+	if (button == 123 || button == 124)
 	{
 		temp = 0.1 * (e->lims.max_x - e->lims.minx) * -1;
-		if (boutton == 124)
+		if (button == 124)
 			temp *= -1;
 		e->lims.max_x += temp;
 		e->lims.minx += temp;
 	}
-	if (boutton == 125 || boutton == 126)
+	if (button == 125 || button == 126)
 	{
 		temp = 0.1 * (e->lims.max_y - e->lims.miny) * -1;
-		if (boutton == 125)
+		if (button == 125)
 			temp *= -1;
 		e->lims.max_y += temp;
 		e->lims.miny += temp;
 	}
 }
 
-int	key_hook(int boutton, t_info *e)
+int	key_hook(int button, t_info *e)
 {
 	double	temp;
 
-	arrows_control(boutton, e, temp);
-	if (boutton == 69)
+	temp = 0.0;
+	arrows_control(button, e, temp);
+	if (button == 69)
 		e->lims.max_iter += 1;
-	if (boutton == 78)
+	if (button == 78)
 		e->lims.max_iter -= 1;
-	if (boutton == 53)
+	if (button == 53)
 	{
-		mlx_clear_window(e->mlx, e->mlx_win);
+		mlx_destroy_window(e->mlx, e->mlx_win);
 		exit(0);
 	}
 	return (0);
@@ -69,19 +70,20 @@ void	wheel_down(t_info *e, double temp, double a, double b)
 	e->lims.miny -= temp;
 }
 
-int	mouse_hook(int boutton, int x, int y, t_info *e)
+int	mouse_hook(int button, int x, int y, t_info *e)
 {
 	double	a;
 	double	b;
 	double	temp;
 
-	if (boutton == 5)
+	temp = 0.0;
+	if (button == 5)
 	{
 		a = x / 1920.0;
 		b = y / 1080.0;
 		wheel_up(e, temp, a, b);
 	}
-	else if (boutton == 4)
+	else if (button == 4)
 	{
 		a = x / 1920.0;
 		b = y / 1080.0;

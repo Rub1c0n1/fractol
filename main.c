@@ -66,6 +66,6 @@ int	main(int argc, char*argv[])
 		mlx_loop(e.mlx);
 	}
 	else
-		printf("%s", "Available commands: mandelbrot, julia");
+		write(1, "Available commands: mandelbrot, julia", 38);
 	return (0);
 }
