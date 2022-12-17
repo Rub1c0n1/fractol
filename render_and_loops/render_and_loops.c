@@ -19,8 +19,9 @@ void	for_mlx_get_data(t_data *data, char**addr, void *img)
 
 int	destroy_window(int keycode, t_info *e)
 {
+	(void) keycode;
 	mlx_destroy_window(e->mlx, e->mlx_win);
-	return (0);
+	exit(0);
 }
 
 int	render(t_info *e)
@@ -39,7 +40,7 @@ int	render(t_info *e)
 int	loop_hook(t_info *e)
 {
 	render(e);
-	mlx_hook(e->mlx_win, 2, 1L<<0, destroy_window, &e);
+	mlx_hook(e->mlx_win, 17, 0, destroy_window, e);
 	mlx_key_hook(e->mlx_win, &key_hook, e);
 	mlx_mouse_hook(e->mlx_win, &mouse_hook, e);
 	return (0);

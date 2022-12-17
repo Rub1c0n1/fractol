@@ -1,4 +1,4 @@
-NAME	=	fractol.a
+NAME	=	fractol
 
 SRCS =	keys_control/keys.c \
 	render_and_loops/render_and_loops.c \

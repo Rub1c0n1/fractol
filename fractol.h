@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
-void 	destroy_window(t_info *e);
+int     destroy_window(int keycode, t_info *e);
 void	print_pixel(int iteration, t_info *e, double col, double row);
 void	julia_formule(t_cmp *cmp, t_lims *lims, double *x_new, int *iteration);
 int		key_hook(int button, t_info *e);
